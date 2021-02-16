@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { OverlayChildren } from 'react-bootstrap/esm/Overlay';
+
+export const TermsAndConditionsPopover: OverlayChildren = () => (
+	<Popover id="terms-and-conditions-popover">
+		<Popover.Content>No ice cream will actually be delivered</Popover.Content>
+	</Popover>
+);
 
 export interface SummaryFormProps {}
 
@@ -8,7 +15,10 @@ export const SummaryForm: React.FC<SummaryFormProps> = () => {
 
 	const tcLabel = (
 		<span>
-			I agree to <span style={{ color: 'blue' }}>Terms and Conditions</span>
+			I agree to
+			<OverlayTrigger placement="right" overlay={TermsAndConditionsPopover}>
+				<span style={{ color: 'blue' }}>Terms and Conditions</span>
+			</OverlayTrigger>
 		</span>
 	);
 
