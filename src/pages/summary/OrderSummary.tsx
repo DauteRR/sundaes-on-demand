@@ -9,6 +9,8 @@ export interface OrderSummaryProps {
 export const OrderSummary: React.FC<OrderSummaryProps> = ({ goToOrderConfirmation }) => {
 	const { totals, optionCounts } = useOrderDetails();
 
+	const atLeastOneTopping = Object.values(optionCounts.toppings).some(quantity => quantity > 0);
+
 	return (
 		<div>
 			<h1>Order Summary</h1>
@@ -22,14 +24,18 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({ goToOrderConfirmatio
 						</li>
 					))}
 			</ul>
-			<h2>Toppings {totals.toppings}</h2>
-			<ul>
-				{Object.entries(optionCounts.toppings)
-					.filter(([, quantity]) => quantity > 0)
-					.map(([item], index) => (
-						<li key={index}>{item}</li>
-					))}
-			</ul>
+			{atLeastOneTopping && (
+				<>
+					<h2>Toppings {totals.toppings}</h2>
+					<ul>
+						{Object.entries(optionCounts.toppings)
+							.filter(([, quantity]) => quantity > 0)
+							.map(([item], index) => (
+								<li key={index}>{item}</li>
+							))}
+					</ul>
+				</>
+			)}
 			<h2>Total {totals.grandTotal}</h2>
 			<SummaryForm onOrderConfirmation={goToOrderConfirmation} />
 		</div>

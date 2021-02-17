@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 
@@ -9,6 +9,21 @@ export interface ScoopOptionProps {
 
 export const ScoopOption: React.FC<ScoopOptionProps> = ({ name, imagePath }) => {
 	const { updateItemCount } = useOrderDetails();
+	const [isValid, setIsValid] = useState<boolean>(true);
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target;
+		if (value === '') return;
+
+		const floatValue = parseFloat(value);
+		const validValue =
+			floatValue >= 0 && floatValue < 6 && Math.floor(parseFloat(value)) === floatValue;
+		setIsValid(validValue);
+
+		if (validValue) {
+			updateItemCount(name, value, 'scoops');
+		}
+	};
 
 	return (
 		<Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
@@ -23,11 +38,12 @@ export const ScoopOption: React.FC<ScoopOptionProps> = ({ name, imagePath }) => 
 				</Form.Label>
 				<Col xs="5" style={{ textAlign: 'left' }}>
 					<Form.Control
+						isInvalid={!isValid}
 						type="number"
 						defaultValue={0}
-						onChange={event => {
-							updateItemCount(name, event.target.value, 'scoops');
-						}}
+						min={0}
+						max={5}
+						onChange={handleChange}
 					/>
 				</Col>
 			</Form.Group>

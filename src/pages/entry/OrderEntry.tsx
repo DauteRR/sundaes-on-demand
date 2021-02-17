@@ -8,7 +8,9 @@ export interface OrderEntryProps {
 }
 
 export const OrderEntry: React.FC<OrderEntryProps> = ({ goToOrderSummary }) => {
-	const { totals } = useOrderDetails();
+	const { totals, optionCounts } = useOrderDetails();
+
+	const zeroScoops = Object.values(optionCounts.scoops).every(quantity => quantity === 0);
 
 	return (
 		<div>
@@ -16,7 +18,7 @@ export const OrderEntry: React.FC<OrderEntryProps> = ({ goToOrderSummary }) => {
 			<Options optionType="scoops" />
 			<Options optionType="toppings" />
 			<h2>Grand total: {totals.grandTotal}</h2>
-			<Button variant="success" onClick={goToOrderSummary}>
+			<Button disabled={zeroScoops} variant="success" onClick={goToOrderSummary}>
 				Order
 			</Button>
 		</div>

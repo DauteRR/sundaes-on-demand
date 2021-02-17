@@ -53,3 +53,21 @@ test('Order phases', async () => {
 	await screen.findByRole('spinbutton', { name: 'Vanilla' });
 	await screen.findByRole('checkbox', { name: 'Cherries' });
 });
+
+test('Conditional toppings section on summary page', async () => {
+	render(<App />);
+
+	const vanillaScoopInput = await screen.findByRole('spinbutton', { name: /vanilla/i });
+
+	userEvent.clear(vanillaScoopInput);
+	userEvent.type(vanillaScoopInput, '2');
+
+	const orderButton = screen.getByRole('button', { name: /order/i });
+	userEvent.click(orderButton);
+
+	const orderSummaryHeader = screen.getByRole('heading', { name: /order summary/i });
+	expect(orderSummaryHeader).toBeInTheDocument();
+
+	const toppingsSection = screen.queryByRole('heading', { name: /toppings/i });
+	expect(toppingsSection).not.toBeInTheDocument();
+});
