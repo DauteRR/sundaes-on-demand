@@ -27,7 +27,9 @@ export const Options: React.FC<OptionsProps> = ({ optionType }) => {
 			? scoops.map((scoop, index) => (
 					<ScoopOption key={index} name={scoop.name} imagePath={scoop.imagePath} />
 			  ))
-			: toppings.map((topping, index) => <ToppingOption key={index} />);
+			: toppings.map((topping, index) => (
+					<ToppingOption key={index} name={topping.name} imagePath={topping.imagePath} />
+			  ));
 
 	return <Row>{optionItems}</Row>;
 };
