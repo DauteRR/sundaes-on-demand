@@ -34,7 +34,15 @@ export const SummaryForm: React.FC<SummaryFormProps> = ({ onOrderConfirmation })
 					label={tcLabel}
 				/>
 			</Form.Group>
-			<Button onClick={onOrderConfirmation} variant="primary" disabled={!tcChecked}>
+			<Button
+				onClick={event => {
+					event.preventDefault();
+					onOrderConfirmation();
+				}}
+				variant="primary"
+				type="submit"
+				disabled={!tcChecked}
+			>
 				Confirm order
 			</Button>
 		</Form>

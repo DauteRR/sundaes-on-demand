@@ -10,7 +10,7 @@ test('Handles error for scoops and toppings routes', async () => {
 		rest.get('http://localhost:3030/toppings', (req, res, ctx) => res(ctx.status(500)))
 	);
 
-	render(<OrderEntry goToOrderSummary={() => {}} />, { wrapper: OrderDetailsProvider });
+	render(<OrderEntry goToOrderSummary={jest.fn()} />, { wrapper: OrderDetailsProvider });
 
 	await waitFor(async () => {
 		const alerts = await screen.findAllByRole('alert');
