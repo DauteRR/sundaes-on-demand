@@ -2,7 +2,7 @@
 
 Results of completing Bonnie Schulkin's course 'Testing React with Jest and Testing Library' ✅.
 
-In order to run the tests type on your terminal:
+To trigger a test run execute the commands below
 
 ```bash
 
