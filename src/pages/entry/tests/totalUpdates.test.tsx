@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { OrderDetailsProvider } from '../../../contexts/OrderDetails';
 import { Options } from '../Options';
@@ -44,7 +44,7 @@ test('Update toppings subtotal when toppings change', async () => {
 
 describe('Grand total', () => {
 	test('Grand total updates properly if scoop is added first', async () => {
-		render(<OrderEntry />, { wrapper: OrderDetailsProvider });
+		render(<OrderEntry goToOrderSummary={() => {}} />, { wrapper: OrderDetailsProvider });
 
 		const grandTotal = screen.getByRole('heading', { name: /grand total: \$/i });
 		expect(grandTotal).toHaveTextContent('0.00');
@@ -61,7 +61,7 @@ describe('Grand total', () => {
 	});
 
 	test('Grand total updates properly if topping is added first', async () => {
-		render(<OrderEntry />, { wrapper: OrderDetailsProvider });
+		render(<OrderEntry goToOrderSummary={() => {}} />, { wrapper: OrderDetailsProvider });
 
 		const grandTotal = screen.getByRole('heading', { name: /grand total: \$/i });
 		expect(grandTotal).toHaveTextContent('0.00');
@@ -78,7 +78,7 @@ describe('Grand total', () => {
 	});
 
 	test('Grand total updates properly if item is removed', async () => {
-		render(<OrderEntry />, { wrapper: OrderDetailsProvider });
+		render(<OrderEntry goToOrderSummary={() => {}} />, { wrapper: OrderDetailsProvider });
 
 		const grandTotal = screen.getByRole('heading', { name: /grand total: \$/i });
 

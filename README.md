@@ -1,17 +1,12 @@
 # Sundaes on demand
 
-Implementation of the second application of Bonnie Schulkin's course: Testing React with Jest and Testing Library course ✅.
+Results of completing Bonnie Schulkin's course 'Testing React with Jest and Testing Library' ✅.
 
-## Run tests
+In order to run the tests type on your terminal:
 
-TODO
+```bash
 
-#### Acceptance tests
+$ npm install
+$ npm test
 
-TODO
-
-##### Backend
-
-Executing the backend application is needed in order to test the frontend application manually.
-
-TODO
+```

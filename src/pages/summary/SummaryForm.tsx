@@ -8,9 +8,11 @@ export const TermsAndConditionsPopover: OverlayChildren = () => (
 	</Popover>
 );
 
-export interface SummaryFormProps {}
+export interface SummaryFormProps {
+	onOrderConfirmation(): void;
+}
 
-export const SummaryForm: React.FC<SummaryFormProps> = () => {
+export const SummaryForm: React.FC<SummaryFormProps> = ({ onOrderConfirmation }) => {
 	const [tcChecked, setTcChecked] = useState<boolean>(false);
 
 	const tcLabel = (
@@ -32,7 +34,7 @@ export const SummaryForm: React.FC<SummaryFormProps> = () => {
 					label={tcLabel}
 				/>
 			</Form.Group>
-			<Button variant="primary" type="submit" disabled={!tcChecked}>
+			<Button onClick={onOrderConfirmation} variant="primary" disabled={!tcChecked}>
 				Confirm order
 			</Button>
 		</Form>
