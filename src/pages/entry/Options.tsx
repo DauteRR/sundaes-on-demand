@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
+import AlertBanner from '../common/AlertBanner';
 import { ScoopOption, ScoopOptionProps } from './ScoopOption';
 import ToppingOption, { ToppingOptionProps } from './ToppingOption';
 
@@ -11,6 +12,7 @@ export interface OptionsProps {
 export const Options: React.FC<OptionsProps> = ({ optionType }) => {
 	const [scoops, setScoops] = useState<ScoopOptionProps[]>([]);
 	const [toppings, setToppings] = useState<ToppingOptionProps[]>([]);
+	const [error, setError] = useState<boolean>(false);
 
 	useEffect(() => {
 		axios
@@ -19,8 +21,13 @@ export const Options: React.FC<OptionsProps> = ({ optionType }) => {
 				optionType === 'scoops'
 					? setScoops(response.data as ScoopOptionProps[])
 					: setToppings(response.data as ToppingOptionProps[])
-			);
+			)
+			.catch(error => setError(true));
 	}, [optionType]);
+
+	if (error) {
+		return <AlertBanner />;
+	}
 
 	const optionItems =
 		optionType === 'scoops'
